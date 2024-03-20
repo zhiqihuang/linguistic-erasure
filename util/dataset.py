@@ -6,7 +6,7 @@ from torch.utils.data import Dataset, DataLoader
 import mmap
 from tqdm import tqdm
 from datasets import load_dataset
-HF_TOKEN = "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"
+HF_TOKEN = ""
 
 # reads the number of lines in a file
 def get_num_lines(file_path):
