@@ -92,13 +92,12 @@ def optimal_transport(x_train, z_train, x_dev, dev_z=None, source=0, target=1):
   mean_target = np.mean(target_x_train, axis=0)
   A = get_optimal_gaussian_transport_func(source_x_train, target_x_train, diag_cov=False, use_shrinkage=False)
 
-  clf = SGDClassifier(random_state=0, loss='hinge', alpha=1e-3, max_iter=500000, tol=1e-5)
-  clf.fit(x_train, z_train)
-
   dev_x_transformed = x_dev.copy()
   train_x_transformed = x_train.copy()
 
   if dev_z is None:
+    clf = SGDClassifier(random_state=0, loss='hinge', alpha=1e-3, max_iter=500000, tol=1e-5)
+    clf.fit(x_train, z_train)
     dev_z = clf.predict(x_dev)
 
   dev_x_transformed[dev_z == source] = mean_target + (dev_x_transformed[dev_z == source] - mean_source) @ A
